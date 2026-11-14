@@ -1,6 +1,7 @@
+import os
 import json
 
-with open(r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\collect_trade_tax_tx.json", "r") as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "collect_trade_tax_tx.json"), "r") as f:
     tx = json.load(f)
 
 meta = tx.get("result", {}).get("meta", {})

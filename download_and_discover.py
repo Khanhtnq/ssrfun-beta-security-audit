@@ -4,7 +4,7 @@ import urllib.request
 import ssl
 from urllib.parse import urljoin
 
-base_dir = r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit"
+base_dir = os.path.dirname(os.path.abspath(__file__))
 artifacts_dir = os.path.join(base_dir, "artifacts")
 os.makedirs(artifacts_dir, exist_ok=True)
 

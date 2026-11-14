@@ -1,3 +1,4 @@
+import os
 import urllib.request, json, ssl, base64
 
 rpc_url = "https://api.mainnet-beta.solana.com"
@@ -33,7 +34,7 @@ for offset in range(0, total_size, chunk_size):
         full_bytes.extend(data)
         print(f"  Offset {offset}: downloaded {len(data)} bytes (total {len(full_bytes)})")
 
-with open(r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\program_binary.elf", "wb") as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "program_binary.elf"), "wb") as f:
     f.write(full_bytes)
 
 print(f"Saved program_binary.elf ({len(full_bytes)} bytes)")

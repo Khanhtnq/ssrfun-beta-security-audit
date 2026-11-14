@@ -1,3 +1,4 @@
+import os
 import urllib.request, ssl, json, os
 
 ctx = ssl.create_default_context()
@@ -11,7 +12,7 @@ req = urllib.request.Request("https://ssr.fun/api/mainnet/campaign-leaderboard",
 with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
     data = json.loads(resp.read().decode('utf-8'))
 
-with open(r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\campaign-leaderboard.json", "w", encoding="utf-8") as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "campaign-leaderboard.json"), "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)
 
 print(json.dumps(data, indent=2))

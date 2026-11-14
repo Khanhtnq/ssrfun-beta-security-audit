@@ -1,6 +1,7 @@
+import os
 import re, os, json
 
-elf_path = r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\program_binary.elf"
+elf_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "program_binary.elf")
 with open(elf_path, "rb") as f:
     data = f.read()
 
@@ -39,7 +40,7 @@ for s in sorted(list(kw_matches))[:40]:
     print(" ", s)
 
 # Save all strings to artifact for thorough review
-with open(r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\elf_strings.txt", "w", encoding="utf-8") as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "elf_strings.txt"), "w", encoding="utf-8") as f:
     for s in strings:
         f.write(s + "\n")
 print("\nSaved elf_strings.txt")

@@ -1,3 +1,4 @@
+import os
 import json, hashlib
 
 # Test account name hash
@@ -6,7 +7,7 @@ for n in names:
     h = hashlib.sha256(f"account:{n}".encode()).hexdigest()[:16]
     print(f"account:{n} -> {h}")
 
-with open(r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\sample_tx.json", "r") as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "sample_tx.json"), "r") as f:
     tx = json.load(f)
 
 meta = tx.get("result", {}).get("meta", {})

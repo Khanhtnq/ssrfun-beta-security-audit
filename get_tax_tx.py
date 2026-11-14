@@ -1,3 +1,4 @@
+import os
 import urllib.request, json, ssl, time
 
 rpc_url = "https://api.mainnet-beta.solana.com"
@@ -34,6 +35,6 @@ for s in sig_list:
     logs = tx.get("result", {}).get("meta", {}).get("logMessages", [])
     if any("CollectTradeTax" in l for l in logs):
         print(f"FOUND CollectTradeTax tx: {sig_str}")
-        with open(r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\collect_trade_tax_tx.json", "w", encoding="utf-8") as f:
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "collect_trade_tax_tx.json"), "w", encoding="utf-8") as f:
             json.dump(tx, f, indent=2)
         break

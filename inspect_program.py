@@ -1,3 +1,4 @@
+import os
 import urllib.request, json, ssl, base64
 
 rpc_url = "https://api.mainnet-beta.solana.com"
@@ -35,7 +36,7 @@ if sig_list:
     sample_sig = sig_list[0].get("signature")
     print(f"\nFetching tx: {sample_sig}")
     tx = solana_rpc("getTransaction", [sample_sig, {"encoding": "jsonParsed", "maxSupportedTransactionVersion": 0}])
-    with open(r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\sample_tx.json", "w", encoding="utf-8") as f:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "sample_tx.json"), "w", encoding="utf-8") as f:
         json.dump(tx, f, indent=2)
     print("Saved sample_tx.json")
     

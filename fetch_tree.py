@@ -1,7 +1,7 @@
 import os, sys, re, urllib.request, ssl
 from urllib.parse import urljoin
 
-base_dir = r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts"
+base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts")
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE

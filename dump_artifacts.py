@@ -3,7 +3,7 @@ import os, sys
 # Set utf-8 stdout
 sys.stdout.reconfigure(encoding='utf-8')
 
-artifacts_dir = r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts"
+artifacts_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts")
 
 for fname in os.listdir(artifacts_dir):
     p = os.path.join(artifacts_dir, fname)

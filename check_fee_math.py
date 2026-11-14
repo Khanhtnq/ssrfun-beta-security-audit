@@ -1,6 +1,7 @@
+import os
 import re
 
-with open(r"e:\BOUTY ARGON\workspaces\ssrfun_beta_audit\artifacts\elf_strings.txt", "r", encoding="utf-8") as f:
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "elf_strings.txt"), "r", encoding="utf-8") as f:
     lines = f.readlines()
 
 print("Strings related to fee math:")
