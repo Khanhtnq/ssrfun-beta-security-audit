@@ -1,0 +1,103 @@
+{
+  "phase": "live",
+  "startTs": 1794319200,
+  "endTs": 1796911200,
+  "entries": 3,
+  "traderEntries": 7,
+  "volume": [
+    {
+      "reserve": "FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb",
+      "reserveId": "93",
+      "mint": "8NF4joMpjNmnSZNmZh5nxFnp5YGbvtUUiAWFzVdo54W5",
+      "name": "KingintheNorth Reserve",
+      "ticker": "KING",
+      "imageUrl": "https://ssr.fun/api/mainnet/reserve-image?id=103357c17a663c48",
+      "handle": "daniel10124861",
+      "wallet": "DVHDEzyFhVHjkQT3nxzavAvT2j6VE29RNMtux3X7VdbQ",
+      "status": "active",
+      "value": 17.000483992367762,
+      "enteredAt": "2026-11-12T03:36:19.180Z",
+      "rank": 1
+    },
+    {
+      "reserve": "A3tRdnc1s7fiwvkmVwm6s7wAmF3fML56Pz7QdhpbHJvX",
+      "reserveId": "94",
+      "mint": "D8zqKJ7vThhKRA9eVjgyWXN9zbktE9RKr4aSYGmjNks5",
+      "name": "Solana Core",
+      "ticker": "CORE",
+      "imageUrl": null,
+      "handle": "0xdeadbeaf__",
+      "wallet": "CwQLccghiyXyv5oP1UkHRvkrRMeTzxhV7G4jjfTMnTHk",
+      "status": "active",
+      "value": 1.0007087471521867,
+      "enteredAt": "2026-11-12T05:28:15.406Z",
+      "rank": 2
+    },
+    {
+      "reserve": "B2Es46k6AGUDKaf9VdDvSverf9MDFC8wx7CTM9vWiJZr",
+      "reserveId": "95",
+      "mint": "AWB8Dw56EVj7ExfYQkP81MyFumDvNS3Nfkmx6us3nzJL",
+      "name": "Upnorthgamer",
+      "ticker": "GAME",
+      "imageUrl": "https://ssr.fun/api/mainnet/reserve-image?id=97cd5e2faae52813",
+      "handle": "upnorthgamers",
+      "wallet": "9zYjv7c8nL6rZxkbuWpN6cfV7tvBFjh9n6Sz6jhfbkmL",
+      "status": "active",
+      "value": 0.9996335459629508,
+      "enteredAt": "2026-11-13T18:55:59.849Z",
+      "rank": 3
+    }
+  ],
+  "pnl": [
+    {
+      "reserve": "A3tRdnc1s7fiwvkmVwm6s7wAmF3fML56Pz7QdhpbHJvX",
+      "reserveId": "94",
+      "mint": "D8zqKJ7vThhKRA9eVjgyWXN9zbktE9RKr4aSYGmjNks5",
+      "name": "Solana Core",
+      "ticker": "CORE",
+      "imageUrl": null,
+      "handle": "0xdeadbeaf__",
+      "wallet": "CwQLccghiyXyv5oP1UkHRvkrRMeTzxhV7G4jjfTMnTHk",
+      "status": "active",
+      "value": -5.484830715567657,
+      "enteredAt": "2026-11-12T05:28:15.406Z",
+      "rank": 1
+    }
+  ],
+  "traders": [
+    {
+      "rank": 1,
+      "wallet": "DVHDEzyFhVHjkQT3nxzavAvT2j6VE29RNMtux3X7VdbQ",
+      "handle": "daniel10124861",
+      "value": 17.000483992367762,
+      "trades": 1
+    },
+    {
+      "rank": 2,
+      "wallet": "9ui2GgaF6GtonczttQHShVgh6xxc4Uz7PjuDCf7HGiVn",
+      "handle": "MonachusMercati",
+      "value": 4.705243098069909,
+      "trades": 2
+    },
+    {
+      "rank": 3,
+      "wallet": "CwQLccghiyXyv5oP1UkHRvkrRMeTzxhV7G4jjfTMnTHk",
+      "handle": "0xdeadbeaf__",
+      "value": 1.0007087471521867,
+      "trades": 1
+    },
+    {
+      "rank": 4,
+      "wallet": "9zYjv7c8nL6rZxkbuWpN6cfV7tvBFjh9n6Sz6jhfbkmL",
+      "handle": "upnorthgamers",
+      "value": 0.9996335459629508,
+      "trades": 1
+    }
+  ],
+  "volumeLeader": {
+    "kind": "reserve",
+    "id": "FFPxPj1BaAPD8WuYpvnpReyUCYJZqA2pQxXH94yW7MVb",
+    "value": 17.000483992367762
+  },
+  "generatedAt": "2026-11-14T01:24:08.513Z"
+}

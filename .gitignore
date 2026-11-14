@@ -1,0 +1,6 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Large raw binaries
+artifacts/program_binary.elf
