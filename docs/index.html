@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSR.FUN Beta — Security & Architecture Audit Report</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --accent: #f59e0b;
+      --accent-glow: rgba(245, 158, 11, 0.25);
+      --sol-purple: #9945ff;
+      --sol-green: #14f195;
+      --red: #ef4444;
+      --text: #f3f4f6;
+      --text-dim: #9ca3af;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      padding: 32px 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--accent);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--sol-green) 50%, var(--sol-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.lead {
+      color: var(--text-dim);
+      font-size: 1.15rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .tag {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      background: #374151;
+      color: #e5e7eb;
+    }
+    .tag-vuln { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
+    .tag-sol { background: rgba(20, 241, 149, 0.2); color: #14f195; }
+    .tag-orange { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    ul { list-style: none; }
+    li { margin-bottom: 10px; color: var(--text-dim); font-size: 0.95rem; }
+    li strong { color: var(--text); }
+    code {
+      font-family: var(--font-mono);
+      background: #1f2937;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: #38bdf8;
+    }
+    pre {
+      background: #030712;
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #93c5fd;
+      margin-top: 12px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin: 32px 0;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--sol-green), var(--sol-purple));
+      color: #000;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(20, 241, 149, 0.3);
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+    }
+    .btn-secondary:hover { background: #1f2937; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+    th { color: #9ca3af; font-weight: 600; }
+    footer {
+      text-align: center;
+      padding-top: 40px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">Solana Mainnet-Beta • Security Audit</div>
+      <h1>SSR.FUN Beta Security Audit</h1>
+      <p class="lead">Comprehensive Bytecode Reverse-Engineering, Token-2022 TransferFee Invariants & Frontend Concurrency Audit for Strategic Super Reserve (SSR.FUN).</p>
+      <div class="btn-row">
+        <a href="https://github.com/Khanhtnq/ssrfun-beta-security-audit" class="btn btn-primary" target="_blank">Audit GitHub Repository</a>
+        <a href="https://ssr.fun/beta" class="btn btn-secondary" target="_blank">Target: ssr.fun</a>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">
+          <span>🎯 On-Chain Program Identity</span>
+          <span class="tag tag-sol">Solana Anchor</span>
+        </div>
+        <ul>
+          <li><strong>Anchor Program ID:</strong> <code>8hTW7fHwn8t8hcgTVeyAhHMiCTHGUP3783NWUTBBFwH9</code></li>
+          <li><strong>ProgramData Account:</strong> <code>2YF7aofgPbNj96pJJh1uzLtCk4H2fUq1FVLxFf9TAwow</code> (1.77 MB BPF ELF)</li>
+          <li><strong>Crate Name:</strong> <code>ssr_protocol</code> (Anchor IDL reconstructed)</li>
+          <li><strong>Token Extension:</strong> SPL Token-2022 <code>TransferFeeConfig</code> (0.15% = 15 bps fee)</li>
+          <li><strong>Accounts Audited:</strong> 674 on-chain accounts mapped across 6 Anchor discriminators.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>⚠️ Key Vulnerability Findings</span>
+          <span class="tag tag-vuln">Findings</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Severity</th>
+              <th>Vulnerability Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SEC-01</td>
+              <td><span class="tag tag-vuln">High</span></td>
+              <td>Token-2022 Ceiling Div 100% Tax on Micro-Transfers</td>
+            </tr>
+            <tr>
+              <td>SEC-02</td>
+              <td><span class="tag tag-orange">Medium</span></td>
+              <td>Leaderboard RPC Polling Race Condition & State Desync</td>
+            </tr>
+            <tr>
+              <td>SEC-03</td>
+              <td><span class="tag tag-orange">Medium</span></td>
+              <td>Float-to-Int Slippage Inconsistency Reverting Mints</td>
+            </tr>
+            <tr>
+              <td>SEC-04</td>
+              <td><span class="tag tag-sol">Low</span></td>
+              <td>Client KPSDK Challenge Hook Bypass via Direct RPC</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>🔬 Mathematical Proof: Token-2022 Ceiling</span>
+          <span class="tag tag-orange">Math Proof</span>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 8px;">
+          SPL Token-2022 integer ceiling division formula:
+        </p>
+        <pre><code>Fee = floor((Amount * 15 + 9,999) / 10,000)
+
+When Amount = 1 raw unit:
+Fee = floor((1 * 15 + 9,999) / 10,000)
+    = floor(10,014 / 10,000) = 1 unit (100% confiscated!)</code></pre>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>📜 Full Audit Artifacts & Reproduction</span>
+        <span class="tag tag-sol">Verification</span>
+      </div>
+      <p style="color: var(--text-dim); margin-bottom: 12px;">The complete audit report including disassembled Anchor instruction sighashes, Token-2022 harvest sequences, and remediation patches is published in the repository.</p>
+      <pre><code>Auditor: Trần Ngọc Quốc Khánh (Khanhtnq)
+Solana Identity & Payout: 6mghraUR9NV2fA187VXoLN2rVS3WLA91UhqLfjtvDdmf
+Target Scope: ssr.fun, ssr.fun/beta, ssr.fun/leaderboard</code></pre>
+    </div>
+
+    <footer>
+      <p>SSR.FUN Beta Security Audit • Independent Solana Security Research • Author: Trần Ngọc Quốc Khánh (Khanhtnq)</p>
+    </footer>
+  </div>
+</body>
+</html>
